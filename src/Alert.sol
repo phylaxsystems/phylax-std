@@ -17,9 +17,7 @@ abstract contract Alert is Test {
     /// @notice Enables a new chain
     /// @param aliasOrUrl The alias or URL of the chain to enable
     /// @return The index of the newly enabled chain
-    function enableChain(
-        string calldata aliasOrUrl
-    ) internal returns (uint256) {
+    function enableChain(string calldata aliasOrUrl) internal returns (uint256) {
         $activeChains.push(vm.createFork(aliasOrUrl));
         return $activeChains.length - 1;
     }
