@@ -1,10 +1,8 @@
 # Phylax Standard Library
 
-![CI status](https://github.com/phylax-systems/phylax/actions/workflows/ci.yml)
+![CI status](https://github.com/phylax-systems/phylax-std/actions/workflows/ci.yml/badge.svg)
 
-Phylax Standard Library is a collection of helpful contracts and libraries for use with Phylax. It provides a set of interfaces and contracts to interact with the Phylax VM.
-
-Learn how to use Phylax-Std with the 📖 Foundry Book (Phylax-Std Guide).
+Phylax Standard Library is a collection of helpful contracts and libraries for use with Phylax. It provides a set of interfaces and contracts to interact with Phylax and Foundry.
 
 ## Install
 
@@ -20,7 +18,7 @@ This is the main interface for interacting with Phylax. It enables the Phylax-on
 
 ### Action
 
-This is the base contract for all Phylax alert contracts. It provides a constant reference to the Phylax VM
+This is the base contract for all Phylax alert contracts. It provides a constant reference to Phylax and **RE-IMPORTS** `forge-std/Script.sol`.
 
 #### Action Interface
 
@@ -28,7 +26,7 @@ Read the docs at <https://phylax-std.phylax.watch>
 
 #### Action Usage
 
-```Solidity {
+```Solidity
 import { Action } from "phylax-std/Action.sol";
 
 contract PauseProtocol is Action {
@@ -38,11 +36,11 @@ contract PauseProtocol is Action {
         ph.export("collateral_left", collateral_left);
     }
 }
-}
+```
 
 ### Alert
 
-This is the base contract for all Phylax alert contracts. It provides methods to enable new chains and select a chain.
+This is the base contract for all Phylax alert contracts.  It provides a constant reference to Phylax and **RE-IMPORTS** `forge-std/Test.sol`.
 
 #### Alert Interface
 
