@@ -7,5 +7,5 @@ import {Phylax} from "./Phylax.sol";
 
 // Base contract for all Phylax alert contracts.
 abstract contract Action is Script {
-    Phylax internal constant phylax = Phylax(VM_ADDRESS);
+    Phylax internal constant ph = Phylax(VM_ADDRESS);
 }
