@@ -18,9 +18,7 @@ abstract contract Alert is Test {
     /// @param aliasOrUrl The alias or URL of the chain to enable. The alias is used
     /// when the RPC is defined in `foundry.toml`, as in Forge fork tests.
     /// @return The index of the newly enabled chain
-    function enableChain(
-        string calldata aliasOrUrl
-    ) internal returns (uint256) {
+    function enableChain(string calldata aliasOrUrl) internal returns (uint256) {
         $activeChains.push(vm.createFork(aliasOrUrl));
         return $activeChains.length - 1;
     }
