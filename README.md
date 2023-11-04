@@ -1,6 +1,6 @@
 # Phylax Standard Library
 
-![CI status](https://github.com/foundry-rs/forge-std/actions/workflows/ci.yml)
+![CI status](https://github.com/phylax-systems/phylax/actions/workflows/ci.yml)
 
 Phylax Standard Library is a collection of helpful contracts and libraries for use with Phylax. It provides a set of interfaces and contracts to interact with the Phylax VM.
 
