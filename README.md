@@ -71,6 +71,7 @@ contract CollateralAlert is Alert {
         // ...
     }
 }
+```
 ### License
 
 Phylax Standard Library is offered under either MIT or Apache 2.0.
