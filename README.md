@@ -10,6 +10,16 @@ Phylax Standard Library is a collection of helpful contracts and libraries for u
 forge install phylax-systems/phylax-std
 ```
 
+## Forking
+
+Forking uses Foundry in the background, so you can follow the same best practices:
+
+- Set the RPC url inside the contract
+- Set the RPC url in an env variable and then use the relevant Foundry cheatcodes to get it
+- Set the RPC url inside `foundry.toml` and use an alias in the contracts
+
+Read more in the [Foundry Fork Testing Docs](https://book.getfoundry.sh/forge/fork-testing?highlight=select#forking-cheatcodes).
+
 ## Contracts
 
 ### Phylax
@@ -59,15 +69,15 @@ contract CollateralAlert is Alert {
     uint256 BASELINE_BLOCK = 5000;
 
     function setUp() public {
-        polygon = activateChain(<RPC_URL>);
-        ethereum = activateChain(<RPC_URL>);
+        polygon = enableChain(<RPC_URL>);
+        ethereum = enableChain(<RPC_URL>, BASELINE_BLOCK);
     }
 
     function testCollateralPolygon() chain(polygon) public {
         // ...
     }
 
-    function testCollateralPolygonBaseline() chain_at(polygon, BASELINE_BLOCK) public {
+    function testCollateralPolygonBaseline() chain(ethereum) public {
         // ...
     }
 }
