@@ -28,7 +28,7 @@ abstract contract Alert is Test {
     /// @dev Exports "fork_activated" and selects the fork at the given index
     /// @param index The index of the chain to select
     modifier chain(uint256 index) {
-        ph.export("fork_activated", "");
+        ph.export("phylax_fork_activated", "");
         vm.selectFork($activeChains[index]);
         _;
     }
