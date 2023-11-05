@@ -15,4 +15,4 @@ single_line_statement_blocks = 'preserve'
 
 [doc]
 title = "Phylax Standard Library"
-repository = "https://github.com/phylax-systems/phylax"
+repository = "https://github.com/phylax-systems/phylax-std"
