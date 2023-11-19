@@ -12,7 +12,7 @@ abstract contract Alert is Test {
     Phylax internal constant ph = Phylax(VM_ADDRESS);
 
     /// @dev Array of active chains
-    uint256[] $activeChains;
+    uint256[] internal $activeChains;
 
     /// @notice Enables a new chain
     /// @param aliasOrUrl The alias or URL of the chain to enable. The alias is used

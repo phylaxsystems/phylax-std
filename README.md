@@ -2,7 +2,8 @@
 
 ![CI status](https://github.com/phylax-systems/phylax-std/actions/workflows/ci.yml/badge.svg)
 
-Phylax Standard Library is a collection of helpful contracts and libraries for use with Phylax. It provides a set of interfaces and contracts to interact with Phylax and Foundry.
+Phylax Standard Library is a collection of helpful contracts and libraries for use with Phylax. It provides a set of interfaces and contracts to
+interact with Phylax and Foundry.
 
 ## Install
 
@@ -50,7 +51,7 @@ contract PauseProtocol is Action {
 
 ### Alert
 
-This is the base contract for all Phylax alert contracts.  It provides a constant reference to Phylax and **RE-IMPORTS** `forge-std/Test.sol`.
+This is the base contract for all Phylax alert contracts. It provides a constant reference to Phylax and **RE-IMPORTS** `forge-std/Test.sol`.
 
 #### Alert Interface
 
@@ -82,6 +83,7 @@ contract CollateralAlert is Alert {
     }
 }
 ```
+
 ### License
 
 Phylax Standard Library is offered under either MIT or Apache 2.0.

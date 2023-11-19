@@ -1,0 +1,42 @@
+{
+  "name": "@phylax-systems/phylax-std",
+  "description": "The standard libary of Phylax, the easiest way to monitor smart contracts.",
+  "version": "0.0.1",
+  "author": {
+    "name": "phylax-systems",
+    "url": "https://github.com/phylax-systems"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7",
+    "solhint-community": "^3.5.2"
+  },
+  "bugs": {
+    "url": "https://github.com/phylax-systems/phylax-std/issues"
+  },
+  "files": [
+    "src",
+    "CHANGELOG.md"
+  ],
+  "homepage": "https://github.com/phylax-systems/phylax-std#readme",
+  "keywords": [
+    "smart-contracts",
+    "solidity",
+    "devops",
+    "monitoring",
+    "security"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:phylax-systems/phylax-std",
+  "scripts": {
+    "build": "forge build",
+    "clean": "rm -rf cache out",
+    "lint": "pnpm lint:sol && pnpm prettier:check",
+    "fmt": "forge fmt && pnpm prettier:write",
+    "lint:sol": "forge fmt --check && pnpm solhint \"{src,test}/**/*.sol\"",
+    "prettier:check": "prettier --check \"**/*.{json,md,yml}\"",
+    "prettier:write": "prettier --write \"**/*.{json,md,yml}\""
+  }
+}
