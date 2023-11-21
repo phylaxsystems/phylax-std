@@ -1,7 +1,7 @@
 {
   "name": "@phylax-systems/phylax-std",
   "description": "The standard libary of Phylax, the easiest way to monitor smart contracts.",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": {
     "name": "phylax-systems",
     "url": "https://github.com/phylax-systems"
@@ -11,7 +11,7 @@
     "solhint-community": "^3.5.2"
   },
   "dependencies": {
-    "ds-test": "https//github.com/dapphub/ds-test.git",
+    "ds-test": "https://github.com/dapphub/ds-test.git",
     "forge-std": "https://github.com/foundry-rs/forge-std.git#v1.7.3"
   },
   "bugs": {
