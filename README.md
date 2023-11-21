@@ -7,8 +7,23 @@ interact with Phylax and Foundry.
 
 ## Install
 
+### Foundry
+
 ```bash
 forge install phylax-systems/phylax-std
+```
+
+### Yarn
+
+```bash
+yarn add @phylax-systems/phylax-std
+```
+
+and add the following remappings to your project by creating the `remappings.txt`.
+
+```bash
+forge-std/=node_modules/forge-std/src/
+ds-test/=node_modules/ds-test/src/
 ```
 
 ## Forking
