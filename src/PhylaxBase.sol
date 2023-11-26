@@ -9,12 +9,14 @@ import { Phylax } from "./Phylax.sol";
 /// @dev Base contract for all Phylax alert contracts.
 abstract contract PhylaxBase is CommonBase {
   /// @dev Instance of Phylax contract
-  Phylax ph;
+  Phylax internal ph;
+  bool internal phylax_setup;
 
   /// @notice Sets up the Phylax contract
   /// @dev Instantiates a new Phylax contract and assigns it to the ph variable
   function setupPhylax() public {
     ph = new Phylax();
+    phylax_setup = true;
   }
 
   /// @dev Array of active chains
@@ -49,7 +51,7 @@ abstract contract PhylaxBase is CommonBase {
   /// @notice Modifier to ensure Phylax is setup
   /// @dev Instantiates Phylax if not already setup
   modifier ensurePhylaxSetup() {
-    if (address(ph) == address(0)) {
+    if (!phylax_setup) {
       setupPhylax();
     }
     _;
