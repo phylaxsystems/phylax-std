@@ -10,17 +10,16 @@ import { Phylax } from "./Phylax.sol";
 abstract contract PhylaxBase is CommonBase {
   /// @dev Instance of Phylax contract
   Phylax internal ph;
-  bool internal phylax_setup;
+  bool internal $phylax_setup;
+  /// @dev Array of active chains
+  uint256[] internal $activeChains;
 
   /// @notice Sets up the Phylax contract
   /// @dev Instantiates a new Phylax contract and assigns it to the ph variable
   function setupPhylax() public {
     ph = new Phylax();
-    phylax_setup = true;
+    $phylax_setup = true;
   }
-
-  /// @dev Array of active chains
-  uint256[] internal $activeChains;
 
   /// @notice Enables a new chain
   /// @param aliasOrUrl The alias or URL of the chain to enable. The alias is used
@@ -51,7 +50,7 @@ abstract contract PhylaxBase is CommonBase {
   /// @notice Modifier to ensure Phylax is setup
   /// @dev Instantiates Phylax if not already setup
   modifier ensurePhylaxSetup() {
-    if (!phylax_setup) {
+    if (!$phylax_setup) {
       setupPhylax();
     }
     _;
