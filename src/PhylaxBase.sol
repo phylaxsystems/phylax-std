@@ -10,13 +10,14 @@ import { Phylax } from "./Phylax.sol";
 abstract contract PhylaxBase is CommonBase {
   /// @dev Instance of Phylax contract
   Phylax internal ph;
+  /// @dev Boolean flag to check if Phylax is setup
   bool internal $phylax_setup;
   /// @dev Array of active chains
   uint256[] internal $activeChains;
 
   /// @notice Sets up the Phylax contract
   /// @dev Instantiates a new Phylax contract and assigns it to the ph variable
-  function setupPhylax() public {
+  function setupPhylax() internal {
     ph = new Phylax();
     $phylax_setup = true;
   }
@@ -28,7 +29,9 @@ abstract contract PhylaxBase is CommonBase {
   function enableChain(string memory aliasOrUrl) internal ensurePhylaxSetup returns (uint256) {
     $activeChains.push(vm.createFork(aliasOrUrl));
     return $activeChains.length - 1;
-  } /// @notice Enables a new chain
+  }
+
+  /// @notice Enables a new chain
 
   /// @param aliasOrUrl The alias or URL of the chain to enable. The alias is used
   /// when the RPC is defined in `foundry.toml`, as in Forge fork tests.
