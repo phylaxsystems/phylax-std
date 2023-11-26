@@ -10,7 +10,7 @@ contract PhylaxBaseTest is PhylaxBase {
     sepolia = enableChain("sepolia");
   }
 
-  function testFork() public chain(sepolia) {
+  function testChainModifier() public chain(sepolia) {
     assert(block.number != 0);
   }
 
