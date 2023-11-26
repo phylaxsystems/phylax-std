@@ -1,6 +1,9 @@
 [profile.default]
 fs_permissions = [{ access = "read-write", path = "./" }]
 
+[rpc_endpoints]
+sepolia = "https://ethereum-sepolia.publicnode.com"
+
 [fmt]
 # These are all the `forge fmt` defaults.
 line_length = 120
