@@ -10,8 +10,6 @@ import { Phylax } from "./Phylax.sol";
 abstract contract PhylaxBase is CommonBase {
   /// @dev Instance of Phylax contract
   Phylax internal ph;
-  /// @dev Boolean flag to check if Phylax is setup
-  bool internal $phylax_setup;
   /// @dev Array of active chains
   uint256[] internal $activeChains;
 
@@ -19,7 +17,6 @@ abstract contract PhylaxBase is CommonBase {
   /// @dev Instantiates a new Phylax contract and assigns it to the ph variable
   function setupPhylax() internal {
     ph = new Phylax();
-    $phylax_setup = true;
     // This is required so that the contract is persistent across forks
     vm.makePersistent(address(ph));
   }
@@ -55,7 +52,7 @@ abstract contract PhylaxBase is CommonBase {
   /// @notice Modifier to ensure Phylax is setup
   /// @dev Instantiates Phylax if not already setup
   modifier ensurePhylaxSetup() {
-    if (!$phylax_setup) {
+    if (address(ph) == address(0)) {
       setupPhylax();
     }
     _;
