@@ -20,6 +20,8 @@ abstract contract PhylaxBase is CommonBase {
   function setupPhylax() internal {
     ph = new Phylax();
     $phylax_setup = true;
+    // This is required so that the contract is persistent across forks
+    vm.makePersistent(address(ph));
   }
 
   /// @notice Enables a new chain
