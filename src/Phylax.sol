@@ -10,15 +10,72 @@ import {CommonBase} from "forge-std/Base.sol";
 contract Phylax is CommonBase {
     /// @dev The internal cheatcode address that is used by forge
     Phylax internal constant _ph = Phylax(VM_ADDRESS);
+    bool internal _phylaxRun;
+
+    constructor() {
+        try _ph.importContext("") {
+            _phylaxRun = true;
+        } catch {
+            _phylaxRun = false;
+        }
+    }
 
     /// @notice Export a name/value pair to Phylax
     /// @dev It's exposed via the API and if it's numerical, via the prometheus endpoint as well.
     /// @param name The name of the value to export
     /// @param value The value to export
-    function export(string memory name, string memory value) external {
-        try _ph.export(name, value) {}
-        catch {
-            console.log("'ph.export(string,string)' reverted. This is normal if the code was run by vanilla 'forge'");
+    function export(string memory name, string memory value) external requirePhoundry {
+        if (!_phylaxRun) {
+            informUser;
+            return;
         }
+        _ph.export(name, value);
+    }
+
+    function importContext(string memory key) public view requirePhoundry returns (bytes memory) {
+        if (!_phylaxRun) {
+            informUser;
+            return bytes("");
+        }
+        return _ph.importContext(key);
+    }
+
+    function informUser() internal view {
+        console.log(
+            "Phylax cheatcodes require 'Phoundry', Phylax's fork of Foundry. The cheatcodes do nothing in vanilla Forge."
+        );
+    }
+
+    function importContextString(string memory key) external view returns (string memory) {
+        return abi.decode(importContext(key), (string));
+    }
+
+    function importContextUint(string memory key) external view returns (uint256) {
+        return abi.decode(importContext(key), (uint256));
+    }
+
+    function importContextInt(string memory key) external view returns (int256) {
+        return abi.decode(importContext(key), (int256));
+    }
+
+    function importContextAddress(string memory key) external view returns (address) {
+        return abi.decode(importContext(key), (address));
+    }
+
+    function importContextBytes32(string memory key) external view returns (bytes32) {
+        return abi.decode(importContext(key), (bytes32));
+    }
+
+    function importContextBytes(string memory key) external view returns (bytes memory) {
+        return abi.decode(importContext(key), (bytes));
+    }
+
+    modifier requirePhoundry() {
+        if (!_phylaxRun) {
+            console.log(
+                "Phylax cheatcodes require 'Phoundry', Phylax's fork of Foundry. The cheatcodes do nothing in vanilla Forge."
+            );
+        }
+        _;
     }
 }

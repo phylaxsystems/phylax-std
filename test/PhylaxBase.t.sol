@@ -28,4 +28,8 @@ contract PhylaxBaseTest is PhylaxBase {
     function test_exportNotRevert() public {
         ph.export("test_key", "test_value");
     }
+
+    function test_importNotRevert() public view {
+        ph.importContext("test_key");
+    }
 }
