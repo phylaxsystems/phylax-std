@@ -35,7 +35,7 @@ contract Phylax is CommonBase {
     function importContext(string memory key) public view requirePhoundry returns (bytes memory) {
         if (!_phylaxRun) {
             informUser;
-            return bytes("");
+            return new bytes(32);
         }
         return _ph.importContext(key);
     }
