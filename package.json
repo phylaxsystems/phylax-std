@@ -1,7 +1,7 @@
 {
   "name": "@phylax-systems/phylax-std",
   "description": "The standard libary of Phylax, the easiest way to monitor smart contracts.",
-  "version": "0.0.12",
+  "version": "0.1.1",
   "author": {
     "name": "phylax-systems",
     "url": "https://github.com/phylax-systems"
