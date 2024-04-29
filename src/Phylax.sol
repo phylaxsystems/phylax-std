@@ -27,7 +27,7 @@ contract Phylax is CommonBase {
     /// @param key The key of the value to export
     /// @param value The value to export
     function export(string memory key, string memory value) external requirePhoundry {
-        emit PhylaxExport(name, value);
+        emit PhylaxExport(key, value);
     }
 
     function importContext(string memory key) public view requirePhoundry returns (bytes memory) {
