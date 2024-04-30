@@ -5,7 +5,7 @@ pragma experimental ABIEncoderV2;
 import {CommonBase} from "forge-std/Base.sol";
 import {Phylax} from "./Phylax.sol";
 
-/// @title Alert
+/// @title PhylaxBase
 /// @dev Base contract for all Phylax alert contracts.
 abstract contract PhylaxBase is CommonBase {
     /// @dev Instance of Phylax contract
