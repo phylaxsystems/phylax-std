@@ -1,0 +1,12 @@
+{
+  "navigation": [
+    {
+      "group": "Phylax Standard Library",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "reference"
+      ]
+    }
+  ]
+}
