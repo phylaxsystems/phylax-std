@@ -1,0 +1,36 @@
+---
+title: Introduction to Phylax Node
+description: 'Welcome to a new easier way to monitor your dapp'
+---
+
+<img
+  className="block dark:hidden"
+  src="/images/hero-light.svg"
+  alt="Hero Light"
+/>
+<img
+  className="hidden dark:block"
+  src="/images/hero-dark.svg"
+  alt="Hero Dark"
+/>
+
+## Setting up
+
+As part of "docs-driven development", we're going to document code
+as we commit it and enforce that in the PR approvals flow.
+
+It's easy to add to the docs! Either add markdown/MDX syntax to an
+existing file in /docs, or add a new one (feel free to copy from an
+existing one of the same style). 
+
+To add a new file:
+ - Create ./docs/mynewfile.mdx or ./docs/sdk-reference/myfeature.mdx etc
+ - If you want it to show in the sidebar menu, add it to Navigation in ./mint.js
+
+## Testing
+
+We don't have a staging site set up for docs yet, so it'll be a bit manual
+ - Commit and push the new docs to this repo
+ - Go to the [github action](https://github.com/phylaxsystems/phylax-docs/actions/workflows/mintlify-compile-docs.yml) for the docs repo
+ - At the top of the table showing past workflow runs, on the right side, hit the "Run Workflow" button and run on the main branch
+ - cd to the docs repo, checkout the latest from the `docs-prod` branch, and run `mintlify dev` to see the resulting website

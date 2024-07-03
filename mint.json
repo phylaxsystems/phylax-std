@@ -3,9 +3,13 @@
     {
       "group": "Phylax Standard Library",
       "pages": [
-        "introduction",
-        "quickstart",
-        "reference"
+        "docs/introduction",
+        {
+          "group": "SDK Reference",
+          "pages": [
+            "sdk-reference/sample-feature.mdx"
+          ]
+        }
       ]
     }
   ]
