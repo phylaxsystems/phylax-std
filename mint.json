@@ -7,7 +7,7 @@
         {
           "group": "SDK Reference",
           "pages": [
-            "docs/sdk-reference/sample-feature.mdx"
+            "docs/sdk-reference/sample-feature"
           ]
         }
       ]
