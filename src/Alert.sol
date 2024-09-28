@@ -4,10 +4,11 @@ pragma experimental ABIEncoderV2;
 
 import {Test} from "forge-std/Test.sol";
 import {PhylaxBase} from "./PhylaxBase.sol";
+import {PhylaxNotification} from "./PhylaxNotification.sol";
 
 /// @title Alert
 /// @dev Base contract for all Phylax alert contracts.
-abstract contract Alert is PhylaxBase, Test {
+abstract contract Alert is PhylaxBase, PhylaxNotification, Test {
   function setup() public virtual {
     setupPhylax();
   }
