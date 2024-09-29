@@ -13,11 +13,6 @@ abstract contract PhylaxNotification is PhylaxBase {
         Critical
     }
 
-    struct Label {
-        string key;
-        string value;
-    }
-
     struct NotificationMessage {
         string summary;
         string description;

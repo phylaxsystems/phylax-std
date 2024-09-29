@@ -8,8 +8,11 @@ import {Phylax} from "./Phylax.sol";
 /// @title PhylaxCharts
 /// @dev Base contract for all Phylax charts contracts.
 abstract contract PhylaxCharts is PhylaxBase {
-    Chart[] public phylaxCharts;
-    mapping(string => ChartMapping) public chartDataTypeByName;
+    /// @dev Array of active charts
+    StorageChart[] public phylaxCharts;
+    /// @dev Mapping of chart name by chart data type to check name uniquness 
+    // and correct incoming data points
+    mapping(string => StorageChart) public chartByName;
 
     struct Chart {
         string chartName;
@@ -20,11 +23,20 @@ abstract contract PhylaxCharts is PhylaxBase {
         Label[] labels;
     }
 
-    struct ChartMapping {
+    /// @dev The chart struct without the Label array preventing it from
+    /// being used in arrays or mappings. 
+    struct StorageChart {
         string chartName;
+        string description;
+        string unitLabel;
+        Visualisation visualization;
         DataPointType dataPointType;
+        string[] labelKeys;
+        string[] labelValues;
     }
 
+    /// @notice The visualization enum for describing the type of chart you will create.
+    /// @dev This enum is used to create charts in the Phylax GUI and in the telemetry exports.
     enum Visualisation {
         Bar,
         Line,
@@ -41,7 +53,7 @@ abstract contract PhylaxCharts is PhylaxBase {
     }
 
     modifier uniqueChartName(string memory chartName) {
-        require(bytes(chartDataTypeByName[chartName]).length == 0, "Chart already exists");
+        require(bytes(chartByName[chartName].chartName).length == 0, "Chart already exists");
         _;
     }
 
@@ -53,17 +65,33 @@ abstract contract PhylaxCharts is PhylaxBase {
 
 
     function initCharts() public virtual returns (PhylaxCharts.Chart[] memory memCharts) {
-        memCharts = new PhylaxCharts.Chart[](phylaxCharts.length);
+        memCharts = new PhylaxCharts.Chart[](PhylaxCharts.phylaxCharts.length);
         
         for (uint256 i; i < phylaxCharts.length; i++) {
-            memCharts[i] = phylaxCharts[i];
-            ph.createChartMonitor(
+
+            Label[] memory labels = new Label[](phylaxCharts[i].labelKeys.length);
+
+            for (uint256 j; i < phylaxCharts[i].labelKeys.length; j++) {
+                labels[j] = Label({key: phylaxCharts[i].labelKeys[j], value: phylaxCharts[i].labelValues[j]});
+            }
+
+            Chart memory chart = Chart({
+                chartName: phylaxCharts[i].chartName,
+                description: phylaxCharts[i].description,
+                unitLabel: phylaxCharts[i].unitLabel,
+                visualization: phylaxCharts[i].visualization,
+                dataPointType: phylaxCharts[i].dataPointType,
+                labels: labels
+            });
+
+            memCharts[i] = chart;
+            createChartMonitor(
                 phylaxCharts[i].chartName,
                 phylaxCharts[i].description,
                 phylaxCharts[i].unitLabel,
                 uint8(phylaxCharts[i].visualization),
                 uint8(phylaxCharts[i].dataPointType),
-                phylaxCharts[i].labels
+                labels
             );
         }
     }
@@ -76,19 +104,25 @@ abstract contract PhylaxCharts is PhylaxBase {
         DataPointType dataPointType,
         Label[] memory labels
     ) public uniqueChartName(chartName) {
-        Chart memory newChart = PhylaxCharts.Chart({
+        string[] memory labelKeys = new string[](labels.length);
+        string[] memory labelValues = new string[](labels.length);
+
+        for (uint256 i = 0; i < labels.length; i++) {
+            labelKeys[i] = labels[i].key;
+            labelValues[i] = labels[i].value;
+        }
+
+        StorageChart memory newChart = PhylaxCharts.StorageChart({
             chartName: chartName,
             description: description,
             unitLabel: unitLabel,
             visualization: visualization,
             dataPointType: dataPointType,
-            labels: labels
+            labelKeys: labelKeys,
+            labelValues: labelValues
         });
-        ChartMapping memory chartMap = ChartMapping({
-            chartName: chartName,
-            dataPointType: dataPointType
-        });
-        chartDataTypeByName[chartName] = chartMap;
+
+        chartByName[chartName] = newChart;
         phylaxCharts.push(newChart);
     }
 
@@ -113,10 +147,10 @@ abstract contract PhylaxCharts is PhylaxBase {
     ) public {
         Label[] memory extendedLabels = new Label[](labels.length + 1);
         for (uint256 i = 0; i < labels.length; i++) {
-            extendedLabels[i] = labels[i]
+            extendedLabels[i] = labels[i];
         }
 
-        extendedLabels[labels.length] = Label { key: overlayKey, value: "overlayChartKey" }; 
+        extendedLabels[labels.length] = Label({ key: overlayKey, value: "overlayChartKey" }); 
         
         for (uint256 i = 0; i < chartNames.length; i++) {
             createChart(

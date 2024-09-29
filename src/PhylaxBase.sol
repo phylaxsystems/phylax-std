@@ -84,7 +84,7 @@ abstract contract PhylaxBase is CommonBase {
         uint8 visualization,
         uint8 dataPointType,
         Label[] memory labels
-    ) external requirePhoundry {
+    ) external {
         emit PhylaxCreateMonitor(
             chartName,
             description,
@@ -94,5 +94,4 @@ abstract contract PhylaxBase is CommonBase {
             labels
         );
     }
-.
 }
