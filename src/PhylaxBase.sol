@@ -9,7 +9,7 @@ import {Phylax} from "./Phylax.sol";
 /// @dev Base contract for all Phylax alert contracts.
 abstract contract PhylaxBase is CommonBase {
     /// @dev Instance of Phylax contract
-    Phylax internal ph = Phylax(address(vm));
+    Phylax internal ph = Phylax(address(VM_ADDRESS));
     /// @dev Array of active chains
     uint256[] internal activeChains;
 
@@ -20,7 +20,7 @@ abstract contract PhylaxBase is CommonBase {
     /// @dev Exports "fork_activated" and selects the fork at the given index
     /// @param index The index of the chain to select
     modifier chain(uint256 index) {
-        vm.selectFork(activeChains[index]);
+        ph.selectFork(activeChains[index]);
         _;
     }
 
@@ -29,7 +29,7 @@ abstract contract PhylaxBase is CommonBase {
     /// when the RPC is defined in `foundry.toml`, as in Forge fork tests.
     /// @return The index of the newly enabled forked chain
     function enableChain(string memory aliasOrUrl) internal returns (uint256) {
-        activeChains.push(vm.createFork(aliasOrUrl));
+        activeChains.push(ph.createFork(aliasOrUrl));
         return activeChains.length - 1;
     }
 
@@ -40,7 +40,7 @@ abstract contract PhylaxBase is CommonBase {
     /// @param blockNumber The block number at which the chain should be forked
     /// @return The index of the newly enabled forked chain
     function enableChain(string memory aliasOrUrl, uint256 blockNumber) internal returns (uint256) {
-        activeChains.push(vm.createFork(aliasOrUrl, blockNumber));
+        activeChains.push(ph.createFork(aliasOrUrl, blockNumber));
         return activeChains.length - 1;
     }
 
