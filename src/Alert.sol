@@ -8,8 +8,4 @@ import {PhylaxNotification} from "./PhylaxNotification.sol";
 
 /// @title Alert
 /// @dev Base contract for all Phylax alert contracts.
-abstract contract Alert is PhylaxBase, PhylaxNotification, Test {
-  function setup() public virtual {
-    setupPhylax();
-  }
-}
+abstract contract Alert is PhylaxBase, PhylaxNotification, Test {}
