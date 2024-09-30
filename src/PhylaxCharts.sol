@@ -194,6 +194,200 @@ abstract contract PhylaxCharts is PhylaxBase {
         }
     }
 
+    /// @notice This function create multiple charts that will be overlayed on top of each other by default.
+    /// @param overlayKey The key that will be used to uniquely identify
+    /// a set of charts that should be overlayed on top of each other.
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the charts, which will display on the y-axis
+    /// @param visualization The visualization of the charts
+    /// @param dataPointType The data point type of the charts
+    function createMultiChart(
+        string memory overlayKey,
+        string memory description,
+        string memory unitLabel,
+        Visualisation visualization,
+        DataPointType dataPointType,
+        string[] memory chartNames
+    ) public {
+        createMultiChart(overlayKey, description, unitLabel, visualization, dataPointType, new Label[](0), chartNames);
+    }
+
+    /// @notice This function create a line chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    /// @param labels The labels of the chart
+    function createLineChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType,
+        Label[] memory labels
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Line, dataPointType, labels);
+    }
+
+    /// @notice This function create a line chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    function createLineChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Line, dataPointType);
+    }
+
+    /// @notice This function create a gauge chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    /// @param labels The labels of the chart
+    function createGaugeChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType,
+        Label[] memory labels
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Gauge, dataPointType, labels);
+    }
+
+    /// @notice This function create a gauge chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    function createGaugeChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Gauge, dataPointType);
+    }
+
+    /// @notice This function create a table chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param labels The labels of the chart
+    function createTableChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        Label[] memory labels
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Table, DataPointType.String, labels);
+    }
+
+    /// @notice This function create a table chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    function createTableChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Table, DataPointType.String);
+    }
+
+    /// @notice This function create a bar chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    /// @param labels The labels of the chart
+    function createBarChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType,
+        Label[] memory labels
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Bar, dataPointType, labels);
+    }
+
+    /// @notice This function create a bar chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    function createBarChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Bar, dataPointType);
+    }
+
+    /// @notice This function creates a heatmap chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    /// @param labels The labels of the chart
+    function createHeatmapChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType,
+        Label[] memory labels
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Heatmap, dataPointType, labels);
+    }
+
+    /// @notice This function creates a heatmap chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    function createHeatmapChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.Heatmap, dataPointType);
+    }
+
+    /// @notice This function creates a last value chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    /// @param labels The labels of the chart
+    function createLastValueChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType,
+        Label[] memory labels
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.LastValue, dataPointType, labels);
+    }
+
+    /// @notice This function creates a last value chart with the given parameters.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart on the y-axis
+    /// @param dataPointType The data point type of the chart
+    function createLastValueChart(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        DataPointType dataPointType
+    ) public {
+        createChart(chartName, description, unitLabel, Visualisation.LastValue, dataPointType);
+    }
+
     function writeToChart(string memory chartName, uint64 value, Label[] memory labels) public {
         require(chartByName[chartName].dataPointType == DataPointType.Uint, "Invalid dataPointType");
         writeDataPointUint(chartName, value, labels);
