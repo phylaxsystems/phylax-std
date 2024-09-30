@@ -8,5 +8,5 @@ import {CommonBase, Vm} from "forge-std/Base.sol";
 /// @title Vm-like interface for Phylax
 /// @dev It includes cheatcodes that are available in the phylax fork of foundry, but have not been upstreamed
 interface Phylax is Vm {
-  /// Add additional cheatcodes here...
+/// Add additional cheatcodes here...
 }

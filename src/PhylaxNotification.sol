@@ -2,7 +2,6 @@
 pragma solidity >=0.6.2 <0.9.0;
 pragma experimental ABIEncoderV2;
 
-
 /// @title PhylaxNotification
 /// @dev Base contract for all Phylax notification contracts.
 abstract contract PhylaxNotification {
@@ -11,12 +10,12 @@ abstract contract PhylaxNotification {
         Warning,
         Critical
     }
-    
+
     struct NotificationLabel {
         string key;
         string value;
     }
-    
+
     struct NotificationMessage {
         string summary;
         string description;
@@ -35,21 +34,24 @@ abstract contract PhylaxNotification {
         });
     }
 
-    function info(
-        string memory summary,
-        string memory description,
-        NotificationLabel[] memory labels
-    ) public pure returns (NotificationMessage memory) {
-        return
-            NotificationMessage({
-                summary: summary,
+    function info(string memory summary, string memory description, NotificationLabel[] memory labels)
+        public
+        pure
+        returns (NotificationMessage memory)
+    {
+        return NotificationMessage({
+            summary: summary,
             description: description,
             severity: NotificationSeverity.Info,
             labels: labels
         });
     }
 
-    function warning(string memory summary, string memory description) public pure returns (NotificationMessage memory) {
+    function warning(string memory summary, string memory description)
+        public
+        pure
+        returns (NotificationMessage memory)
+    {
         NotificationLabel[] memory labels;
         return NotificationMessage({
             summary: summary,
@@ -59,21 +61,24 @@ abstract contract PhylaxNotification {
         });
     }
 
-    function warning(
-        string memory summary,
-        string memory description,
-        NotificationLabel[] memory labels
-    ) public pure returns (NotificationMessage memory) {
-        return
-            NotificationMessage({
-                summary: summary,
+    function warning(string memory summary, string memory description, NotificationLabel[] memory labels)
+        public
+        pure
+        returns (NotificationMessage memory)
+    {
+        return NotificationMessage({
+            summary: summary,
             description: description,
             severity: NotificationSeverity.Warning,
             labels: labels
         });
     }
 
-    function critical(string memory summary, string memory description) public pure returns (NotificationMessage memory) {
+    function critical(string memory summary, string memory description)
+        public
+        pure
+        returns (NotificationMessage memory)
+    {
         NotificationLabel[] memory labels;
         return NotificationMessage({
             summary: summary,
@@ -83,14 +88,13 @@ abstract contract PhylaxNotification {
         });
     }
 
-    function critical(
-        string memory summary,
-        string memory description,
-        NotificationLabel[] memory labels
-    ) public pure returns (NotificationMessage memory) {
-        return
-            NotificationMessage({
-                summary: summary,
+    function critical(string memory summary, string memory description, NotificationLabel[] memory labels)
+        public
+        pure
+        returns (NotificationMessage memory)
+    {
+        return NotificationMessage({
+            summary: summary,
             description: description,
             severity: NotificationSeverity.Critical,
             labels: labels
