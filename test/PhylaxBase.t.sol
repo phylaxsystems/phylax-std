@@ -8,7 +8,6 @@ contract PhylaxBaseTest is PhylaxBase {
     uint256 sepolia;
 
     function setUp() public {
-        assert(address(ph) == address(0));
         sepolia = enableChain("sepolia");
     }
 
@@ -21,15 +20,11 @@ contract PhylaxBaseTest is PhylaxBase {
     }
 
     function test_chainsArrayCorrect() public view {
-        assert($activeChains.length == 1);
-        assert($activeChains[0] == sepolia);
+        assert(activeChains.length == 1);
+        assert(activeChains[0] == sepolia);
     }
 
     function test_exportNotRevert() public {
-        ph.export("test_key", "test_value");
-    }
-
-    function test_importNotRevert() public view {
-        ph.importContext("test_key");
+        export("test_key", "test_value");
     }
 }
