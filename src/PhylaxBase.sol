@@ -16,6 +16,12 @@ abstract contract PhylaxBase is CommonBase {
     /// @dev Event to export key value pair
     event PhylaxExport(string key, string value);
 
+    /// @dev Struct for labels
+    struct Label {
+        string key;
+        string value;
+    }
+
     /// @notice Modifier to select a chain
     /// @dev Exports "fork_activated" and selects the fork at the given index
     /// @param index The index of the chain to select
@@ -52,5 +58,40 @@ abstract contract PhylaxBase is CommonBase {
         emit PhylaxExport(key, value);
     }
 
-    /// Add additional events here ...
+    /// @dev Event for creating a monitor
+    event PhylaxCreateMonitor(
+        string name,
+        string description,
+        string unitLabel,
+        uint8 visualization,
+        uint8 dataPointType,
+        Label[] labels
+    );
+
+    /// @notice Setup a unique monitor for your Alert in Phylax
+    /// @dev This is only scanned during the `setUp` function of 
+    /// the alert, it's output will not be read when tests are running.
+    /// @param chartName The name of the chart
+    /// @param description The description of the chart
+    /// @param unitLabel The unit label of the chart
+    /// @param visualization The visualization of the chart
+    /// @param dataPointType The data point type of the chart
+    /// @param labels The labels of the chart
+    function createChartMonitor(
+        string memory chartName,
+        string memory description,
+        string memory unitLabel,
+        uint8 visualization,
+        uint8 dataPointType,
+        Label[] memory labels
+    ) external {
+        emit PhylaxCreateMonitor(
+            chartName,
+            description,
+            unitLabel,
+            visualization,
+            dataPointType,
+            labels
+        );
+    }
 }
