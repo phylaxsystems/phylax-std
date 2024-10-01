@@ -10,6 +10,7 @@ import {Phylax} from "./Phylax.sol";
 abstract contract PhylaxBase is CommonBase {
     /// @dev Instance of Phylax contract
     Phylax internal ph = Phylax(address(VM_ADDRESS));
+    
     /// @dev Array of active chains
     uint256[] internal activeChains;
 
@@ -40,7 +41,6 @@ abstract contract PhylaxBase is CommonBase {
     }
 
     /// @notice Enables a new chain
-
     /// @param aliasOrUrl The alias or URL of the chain to enable. The alias is used
     /// when the RPC is defined in `foundry.toml`, as in Forge fork tests.
     /// @param blockNumber The block number at which the chain should be forked
@@ -84,7 +84,7 @@ abstract contract PhylaxBase is CommonBase {
         uint8 visualization,
         uint8 dataPointType,
         Label[] memory labels
-    ) external {
+    ) public {
         emit PhylaxCreateMonitor(
             chartName,
             description,
@@ -93,5 +93,42 @@ abstract contract PhylaxBase is CommonBase {
             dataPointType,
             labels
         );
+    }
+
+    /// @dev Event for exporting monitor string data points
+    event PhylaxWriteStringMonitor(string name, string value, Label[] labels);
+
+    /// @dev Event for exporting monitor uint data points
+    event PhylaxWriteUintMonitor(string name, uint64 value, Label[] labels);
+
+    /// @dev Event for exporting monitor int data points
+    event PhylaxWriteIntMonitor(string name, int64 value, Label[] labels);
+
+
+    /// @notice Send data to a Phylax monitor which accepts string data, if it was instantiated.
+    function writeDataPointString(
+        string memory chartName,
+        string memory value,
+        Label[] memory labels
+    ) public {
+        emit PhylaxWriteStringMonitor(chartName, value, labels);
+    }
+    
+    /// @notice Send data to a Phylax monitor which accepts uint data, if it was instantiated.
+    function writeDataPointUint(
+        string memory chartName,
+        uint64 value,
+        Label[] memory labels
+    ) public {
+        emit PhylaxWriteUintMonitor(chartName, value, labels);
+    }
+
+    /// @notice Send data to a Phylax monitor which accepts int data, if it was instantiated.
+    function writeDataPointInt(
+        string memory chartName,
+        int64 value,
+        Label[] memory labels
+    ) public {
+        emit PhylaxWriteIntMonitor(chartName, value, labels);
     }
 }
