@@ -37,24 +37,6 @@ abstract contract PhylaxCharts is PhylaxBase {
         string[] labelValues;
     }
 
-    /// @notice The visualization enum for describing the type of chart you will create.
-    /// @dev This enum is used to create charts in the Phylax GUI and in the telemetry exports.
-    enum Visualisation {
-        Bar,
-        Line,
-        Heatmap,
-        Gauge,
-        Table,
-        LastValue
-    }
-
-    /// @notice The data point type enum for describing the type of data point you will create.
-    enum DataPointType {
-        Uint,
-        Int,
-        String
-    }
-
     /// @notice Modifier to enforce if a chart name is unique.
     modifier uniqueChartName(string memory chartName) {
         require(bytes(chartByName[chartName].chartName).length == 0, "Chart already exists");
@@ -96,8 +78,8 @@ abstract contract PhylaxCharts is PhylaxBase {
                 phylaxCharts[i].chartName,
                 phylaxCharts[i].description,
                 phylaxCharts[i].unitLabel,
-                uint8(phylaxCharts[i].visualization),
-                uint8(phylaxCharts[i].dataPointType),
+                phylaxCharts[i].visualization,
+                phylaxCharts[i].dataPointType,
                 labels
             );
         }
