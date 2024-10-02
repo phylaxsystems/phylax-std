@@ -8,10 +8,10 @@ import {Phylax} from "./Phylax.sol";
 /// @dev Base contract for all Phylax charts contracts.
 abstract contract PhylaxCharts is PhylaxBase {
     /// @dev Array of active charts
-    StorageChart[] public phylaxCharts;
+    StorageChart[] internal phylaxCharts;
     /// @dev Mapping of chart name by chart data type to check name uniquness 
     // and correct incoming data points
-    mapping(string => StorageChart) public chartByName;
+    mapping(string => StorageChart) internal chartByName;
 
     /// @notice The chart configuration struct
     /// @dev Can be exported to create a monitor or chart for the alert, 
@@ -53,7 +53,7 @@ abstract contract PhylaxCharts is PhylaxBase {
 
     /// @dev The function for establishing charts manually, in case there was a need you needed your
     // charts returned to you.
-    function initCharts() public virtual returns (PhylaxCharts.Chart[] memory memCharts) {
+    function initCharts() internal virtual returns (PhylaxCharts.Chart[] memory memCharts) {
         memCharts = new PhylaxCharts.Chart[](PhylaxCharts.phylaxCharts.length);
         
         for (uint256 i; i < phylaxCharts.length; i++) {
@@ -100,7 +100,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         Visualisation visualization,
         DataPointType dataPointType,
         Label[] memory labels
-    ) public uniqueChartName(chartName) {
+    ) internal uniqueChartName(chartName) {
         string[] memory labelKeys = new string[](labels.length);
         string[] memory labelValues = new string[](labels.length);
 
@@ -136,7 +136,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory unitLabel,
         Visualisation visualization,
         DataPointType dataPointType
-    ) public uniqueChartName(chartName) {
+    ) internal uniqueChartName(chartName) {
         createChart(chartName, description, unitLabel, visualization, dataPointType, new Label[](0));
     }
 
@@ -156,7 +156,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         DataPointType dataPointType,
         Label[] memory labels,
         string[] memory chartNames
-    ) public {
+    ) internal {
         Label[] memory extendedLabels = new Label[](labels.length + 1);
         for (uint256 i = 0; i < labels.length; i++) {
             extendedLabels[i] = labels[i];
@@ -190,7 +190,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         Visualisation visualization,
         DataPointType dataPointType,
         string[] memory chartNames
-    ) public {
+    ) internal {
         createMultiChart(overlayKey, description, unitLabel, visualization, dataPointType, new Label[](0), chartNames);
     }
 
@@ -206,7 +206,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory unitLabel,
         DataPointType dataPointType,
         Label[] memory labels
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Line, dataPointType, labels);
     }
 
@@ -220,7 +220,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory description,
         string memory unitLabel,
         DataPointType dataPointType
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Line, dataPointType);
     }
 
@@ -236,7 +236,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory unitLabel,
         DataPointType dataPointType,
         Label[] memory labels
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Gauge, dataPointType, labels);
     }
 
@@ -250,7 +250,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory description,
         string memory unitLabel,
         DataPointType dataPointType
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Gauge, dataPointType);
     }
 
@@ -264,7 +264,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory description,
         string memory unitLabel,
         Label[] memory labels
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Table, DataPointType.String, labels);
     }
 
@@ -276,7 +276,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory chartName,
         string memory description,
         string memory unitLabel
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Table, DataPointType.String);
     }
 
@@ -292,7 +292,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory unitLabel,
         DataPointType dataPointType,
         Label[] memory labels
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Bar, dataPointType, labels);
     }
 
@@ -306,7 +306,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory description,
         string memory unitLabel,
         DataPointType dataPointType
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Bar, dataPointType);
     }
 
@@ -322,7 +322,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory unitLabel,
         DataPointType dataPointType,
         Label[] memory labels
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Heatmap, dataPointType, labels);
     }
 
@@ -336,7 +336,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory description,
         string memory unitLabel,
         DataPointType dataPointType
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.Heatmap, dataPointType);
     }
 
@@ -352,7 +352,7 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory unitLabel,
         DataPointType dataPointType,
         Label[] memory labels
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.LastValue, dataPointType, labels);
     }
 
@@ -366,67 +366,67 @@ abstract contract PhylaxCharts is PhylaxBase {
         string memory description,
         string memory unitLabel,
         DataPointType dataPointType
-    ) public {
+    ) internal {
         createChart(chartName, description, unitLabel, Visualisation.LastValue, dataPointType);
     }
 
-    function writeToChart(string memory chartName, uint64 value, Label[] memory labels) public {
+    function writeToChart(string memory chartName, uint64 value, Label[] memory labels) internal {
         require(chartByName[chartName].dataPointType == DataPointType.Uint, "Invalid dataPointType");
         writeDataPointUint(chartName, value, labels);
     }
 
-    function writeToChart(string memory chartName, uint64 value) public {
+    function writeToChart(string memory chartName, uint64 value) internal {
         require(chartByName[chartName].dataPointType == DataPointType.Uint, "Invalid dataPointType");
         writeToChart(chartName, value, new Label[](0));
     }
 
-    function writeToChart(string memory chartName, int64 value, Label[] memory labels) public {
+    function writeToChart(string memory chartName, int64 value, Label[] memory labels) internal {
         require(chartByName[chartName].dataPointType == DataPointType.Int, "Invalid dataPointType");
         writeDataPointInt(chartName, value, labels);
     }
 
-    function writeToChart(string memory chartName, int64 value) public {
+    function writeToChart(string memory chartName, int64 value) internal {
         require(chartByName[chartName].dataPointType == DataPointType.Int, "Invalid dataPointType");
         writeToChart(chartName, value, new Label[](0));
     }
 
-    function writeToChart(string memory chartName, address value, Label[] memory labels) public {
+    function writeToChart(string memory chartName, address value, Label[] memory labels) internal {
         require(chartByName[chartName].dataPointType == DataPointType.String, "Invalid dataPointType");
         writeDataPointString(chartName, vm.toString(value), labels);
     }
 
-    function writeToChart(string memory chartName, address value) public {
+    function writeToChart(string memory chartName, address value) internal {
         require(chartByName[chartName].dataPointType == DataPointType.String, "Invalid dataPointType");
         writeDataPointString(chartName, vm.toString(value), new Label[](0));
     }      
        
 
-    function writeToChart(string memory chartName, string memory value, Label[] memory labels) public {
+    function writeToChart(string memory chartName, string memory value, Label[] memory labels) internal {
         require(chartByName[chartName].dataPointType == DataPointType.String, "Invalid dataPointType");
         writeDataPointString(chartName, value, labels);
     }
 
-    function writeToChart(string memory chartName, string memory value) public {
+    function writeToChart(string memory chartName, string memory value) internal {
         require(chartByName[chartName].dataPointType == DataPointType.String, "Invalid dataPointType");
         writeDataPointString(chartName, value, new Label[](0));
     }
 
-    function writeToChart(string memory chartName, bytes32 value, Label[] memory labels) public {
+    function writeToChart(string memory chartName, bytes32 value, Label[] memory labels) internal {
         require(chartByName[chartName].dataPointType == DataPointType.String, "Invalid dataPointType");
         writeDataPointString(chartName, vm.toString(value), labels);
     }
 
-    function writeToChart(string memory chartName, bytes32 value) public {
+    function writeToChart(string memory chartName, bytes32 value) internal {
         require(chartByName[chartName].dataPointType == DataPointType.String, "Invalid dataPointType");
         writeDataPointString(chartName, vm.toString(value), new Label[](0));
     }
 
-    function writeToChart(string memory chartName, bytes memory value, Label[] memory labels) public {
+    function writeToChart(string memory chartName, bytes memory value, Label[] memory labels) internal {
         require(chartByName[chartName].dataPointType == DataPointType.String, "Invalid dataPointType");
         writeDataPointString(chartName, vm.toString(value), labels);
     }
 
-    function writeToChart(string memory chartName, bytes memory value) public {
+    function writeToChart(string memory chartName, bytes memory value) internal {
         require(chartByName[chartName].dataPointType == DataPointType.String, "Invalid dataPointType");
         writeDataPointString(chartName, vm.toString(value), new Label[](0));
     }
