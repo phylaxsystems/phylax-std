@@ -23,6 +23,24 @@ abstract contract PhylaxBase is CommonBase {
         string value;
     }
 
+     /// @notice The visualization enum for describing the type of chart you will create.
+    /// @dev This enum is used to create charts in the Phylax GUI and in the telemetry exports.
+    enum Visualisation {
+        Bar,
+        Line,
+        Heatmap,
+        Gauge,
+        Table,
+        LastValue
+    }
+
+    /// @notice The data point type enum for describing the type of data point you will create.
+    enum DataPointType {
+        Uint,
+        Int,
+        String
+    }
+
     /// @notice Modifier to select a chain
     /// @dev Exports "fork_activated" and selects the fork at the given index
     /// @param index The index of the chain to select
@@ -63,8 +81,8 @@ abstract contract PhylaxBase is CommonBase {
         string name,
         string description,
         string unitLabel,
-        uint8 visualization,
-        uint8 dataPointType,
+        Visualisation visualization,
+        DataPointType dataPointType,
         Label[] labels
     );
 
@@ -74,15 +92,12 @@ abstract contract PhylaxBase is CommonBase {
     /// @param chartName The name of the chart
     /// @param description The description of the chart
     /// @param unitLabel The unit label of the chart
-    /// @param visualization The visualization of the chart
-    /// @param dataPointType The data point type of the chart
-    /// @param labels The labels of the chart
     function createChartMonitor(
         string memory chartName,
         string memory description,
         string memory unitLabel,
-        uint8 visualization,
-        uint8 dataPointType,
+        Visualisation visualization,
+        DataPointType dataPointType,
         Label[] memory labels
     ) public {
         emit PhylaxCreateMonitor(
