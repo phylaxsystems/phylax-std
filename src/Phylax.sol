@@ -21,6 +21,23 @@ interface Phylax is Vm {
     // the current block number, which enables improved caching and faster execution times
 	function rollForkBack(uint256 forkId, uint256 blocksInThePast) external;
     
+
+    /// Creates a new fork with the given chainId and the _latest_ block, if there is a watcher
+    /// connected to the alert running the cheatcode.
+    function createFork(uint256 chainId) external returns (uint256 forkId);
+
+    /// Creates a new fork with the given chainId and the specified block number, if there is a watcher
+    /// connected to the alert running the cheatcode.
+    function createFork(uint256 chainId, uint256 blockNumber) external returns (uint256 forkId);
+
+    /// Creates and also selects a new fork with the given chainId and the latest block and returns the identifier of the fork.
+    /// If there is no watcher connected to the alert running the cheatcode with the specified chainid, it will fail.
+    function createSelectFork(uint256 chainId) external returns (uint256 forkId);
+    
+    /// Creates and also selects a new fork with the given chainId and block and returns the identifier of the fork.
+    /// If there is no watcher connected to the alert running the cheatcode with the specified chainid, it will fail.
+    function createSelectFork(uint256 chainId, uint256 blockNumber) external returns (uint256 forkId);
+
     /// Add additional cheatcodes here...
 
 }

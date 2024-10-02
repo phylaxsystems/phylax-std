@@ -21,7 +21,7 @@ abstract contract PhylaxNotification is PhylaxBase {
     }
 
     // helper functions
-    function info(string memory summary, string memory description) public pure returns (NotificationMessage memory) {
+    function info(string memory summary, string memory description) internal pure returns (NotificationMessage memory) {
         Label[] memory labels;
         return NotificationMessage({
             summary: summary,
@@ -32,7 +32,7 @@ abstract contract PhylaxNotification is PhylaxBase {
     }
 
     function info(string memory summary, string memory description, Label[] memory labels)
-        public
+        internal
         pure
         returns (NotificationMessage memory)
     {
@@ -45,7 +45,7 @@ abstract contract PhylaxNotification is PhylaxBase {
     }
 
     function warning(string memory summary, string memory description)
-        public
+        internal
         pure
         returns (NotificationMessage memory)
     {
@@ -59,7 +59,7 @@ abstract contract PhylaxNotification is PhylaxBase {
     }
 
     function warning(string memory summary, string memory description, Label[] memory labels)
-        public
+        internal
         pure
         returns (NotificationMessage memory)
     {
@@ -72,7 +72,7 @@ abstract contract PhylaxNotification is PhylaxBase {
     }
 
     function critical(string memory summary, string memory description)
-        public
+        internal
         pure
         returns (NotificationMessage memory)
     {
@@ -86,7 +86,7 @@ abstract contract PhylaxNotification is PhylaxBase {
     }
 
     function critical(string memory summary, string memory description, Label[] memory labels)
-        public
+        internal
         pure
         returns (NotificationMessage memory)
     {
