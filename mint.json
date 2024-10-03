@@ -1,0 +1,16 @@
+{
+  "navigation": [
+    {
+      "group": "Phylax Standard Library",
+      "pages": [
+        "docs/introduction",
+        {
+          "group": "SDK Reference",
+          "pages": [
+            "docs/sdk-reference/sample-feature"
+          ]
+        }
+      ]
+    }
+  ]
+}
