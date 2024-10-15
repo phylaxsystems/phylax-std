@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.6.2 <0.9.0;
-pragma experimental ABIEncoderV2;
+pragma solidity 0.8.28;
 
 import {CommonBase} from "forge-std/Base.sol";
 import {Phylax} from "./Phylax.sol";
@@ -10,7 +9,7 @@ import {Phylax} from "./Phylax.sol";
 abstract contract PhylaxBase is CommonBase {
     /// @dev Instance of Phylax contract
     Phylax internal ph = Phylax(address(VM_ADDRESS));
-    
+
     /// @dev Array of active chains
     uint256[] internal activeChains;
 
@@ -63,7 +62,10 @@ abstract contract PhylaxBase is CommonBase {
     /// when the RPC is defined in `foundry.toml`, as in Forge fork tests.
     /// @param blockNumber The block number at which the chain should be forked
     /// @return The index of the newly enabled forked chain
-    function enableChain(string memory aliasOrUrl, uint256 blockNumber) internal returns (uint256) {
+    function enableChain(
+        string memory aliasOrUrl,
+        uint256 blockNumber
+    ) internal returns (uint256) {
         activeChains.push(ph.createFork(aliasOrUrl, blockNumber));
         return activeChains.length - 1;
     }
@@ -87,7 +89,7 @@ abstract contract PhylaxBase is CommonBase {
     );
 
     /// @notice Setup a unique monitor for your Alert in Phylax
-    /// @dev This is only scanned during the `setUp` function of 
+    /// @dev This is only scanned during the `setUp` function of
     /// the alert, it's output will not be read when tests are running.
     /// @param chartName The name of the chart
     /// @param description The description of the chart
@@ -119,7 +121,6 @@ abstract contract PhylaxBase is CommonBase {
     /// @dev Event for exporting monitor int data points
     event PhylaxWriteIntMonitor(string name, int64 value, Label[] labels);
 
-
     /// @notice Send data to a Phylax monitor which accepts string data, if it was instantiated.
     function writeDataPointString(
         string memory chartName,
@@ -128,7 +129,7 @@ abstract contract PhylaxBase is CommonBase {
     ) public {
         emit PhylaxWriteStringMonitor(chartName, value, labels);
     }
-    
+
     /// @notice Send data to a Phylax monitor which accepts uint data, if it was instantiated.
     function writeDataPointUint(
         string memory chartName,
