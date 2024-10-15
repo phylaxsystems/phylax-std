@@ -23,9 +23,9 @@ abstract contract PhylaxBase is CommonBase {
         string value;
     }
 
-     /// @notice The visualization enum for describing the type of chart you will create.
+    /// @notice The visualization enum for describing the type of chart you will create.
     /// @dev This enum is used to create charts in the Phylax GUI and in the telemetry exports.
-    enum Visualisation {
+    enum Visualization {
         Bar,
         Line,
         Heatmap,
@@ -81,7 +81,7 @@ abstract contract PhylaxBase is CommonBase {
         string name,
         string description,
         string unitLabel,
-        Visualisation visualization,
+        Visualization visualization,
         DataPointType dataPointType,
         Label[] labels
     );
@@ -96,7 +96,7 @@ abstract contract PhylaxBase is CommonBase {
         string memory chartName,
         string memory description,
         string memory unitLabel,
-        Visualisation visualization,
+        Visualization visualization,
         DataPointType dataPointType,
         Label[] memory labels
     ) public {
