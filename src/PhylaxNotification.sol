@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-pragma experimental ABIEncoderV2;
+pragma solidity 0.8.28;
 
 import {PhylaxBase} from "./PhylaxBase.sol";
 
@@ -21,80 +20,87 @@ abstract contract PhylaxNotification is PhylaxBase {
     }
 
     // helper functions
-    function info(string memory summary, string memory description) internal pure returns (NotificationMessage memory) {
+    function info(
+        string memory summary,
+        string memory description
+    ) internal pure returns (NotificationMessage memory) {
         Label[] memory labels;
-        return NotificationMessage({
-            summary: summary,
-            description: description,
-            severity: NotificationSeverity.Info,
-            labels: labels
-        });
+        return
+            NotificationMessage({
+                summary: summary,
+                description: description,
+                severity: NotificationSeverity.Info,
+                labels: labels
+            });
     }
 
-    function info(string memory summary, string memory description, Label[] memory labels)
-        internal
-        pure
-        returns (NotificationMessage memory)
-    {
-        return NotificationMessage({
-            summary: summary,
-            description: description,
-            severity: NotificationSeverity.Info,
-            labels: labels
-        });
+    function info(
+        string memory summary,
+        string memory description,
+        Label[] memory labels
+    ) internal pure returns (NotificationMessage memory) {
+        return
+            NotificationMessage({
+                summary: summary,
+                description: description,
+                severity: NotificationSeverity.Info,
+                labels: labels
+            });
     }
 
-    function warning(string memory summary, string memory description)
-        internal
-        pure
-        returns (NotificationMessage memory)
-    {
+    function warning(
+        string memory summary,
+        string memory description
+    ) internal pure returns (NotificationMessage memory) {
         Label[] memory labels;
-        return NotificationMessage({
-            summary: summary,
-            description: description,
-            severity: NotificationSeverity.Warning,
-            labels: labels
-        });
+        return
+            NotificationMessage({
+                summary: summary,
+                description: description,
+                severity: NotificationSeverity.Warning,
+                labels: labels
+            });
     }
 
-    function warning(string memory summary, string memory description, Label[] memory labels)
-        internal
-        pure
-        returns (NotificationMessage memory)
-    {
-        return NotificationMessage({
-            summary: summary,
-            description: description,
-            severity: NotificationSeverity.Warning,
-            labels: labels
-        });
+    function warning(
+        string memory summary,
+        string memory description,
+        Label[] memory labels
+    ) internal pure returns (NotificationMessage memory) {
+        return
+            NotificationMessage({
+                summary: summary,
+                description: description,
+                severity: NotificationSeverity.Warning,
+                labels: labels
+            });
     }
 
-    function critical(string memory summary, string memory description)
-        internal
-        pure
-        returns (NotificationMessage memory)
-    {
+    function critical(
+        string memory summary,
+        string memory description
+    ) internal pure returns (NotificationMessage memory) {
         Label[] memory labels;
-        return NotificationMessage({
-            summary: summary,
-            description: description,
-            severity: NotificationSeverity.Critical,
-            labels: labels
-        });
+        return
+            NotificationMessage({
+                summary: summary,
+                description: description,
+                severity: NotificationSeverity.Critical,
+                labels: labels
+            });
     }
 
-    function critical(string memory summary, string memory description, Label[] memory labels)
-        internal
-        pure
-        returns (NotificationMessage memory)
-    {
-        return NotificationMessage({
-            summary: summary,
-            description: description,
-            severity: NotificationSeverity.Critical,
-            labels: labels
-        });
+    function critical(
+        string memory summary,
+        string memory description,
+        Label[] memory labels
+    ) internal pure returns (NotificationMessage memory) {
+        return
+            NotificationMessage({
+                summary: summary,
+                description: description,
+                severity: NotificationSeverity.Critical,
+                labels: labels
+            });
     }
 }

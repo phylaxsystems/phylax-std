@@ -9,4 +9,6 @@ import {PhylaxCharts} from "./PhylaxCharts.sol";
 
 /// @title Alert
 /// @dev Base contract for all Phylax alert contracts.
-abstract contract Alert is PhylaxBase, PhylaxCharts, PhylaxNotification, Test {}
+abstract contract Alert is PhylaxBase, PhylaxCharts, PhylaxNotification, Test {
+
+}
