@@ -3,7 +3,7 @@
 The reference documentation for phylax-std lives in this folder.
 The content of this folder will be pulled into the [phylax-docs](https://github.com/phylaxsystems/phylax-docs) repo where it will be built and published.
 
-The README.md in the root folder should always be kept up to date, so that people are able to use phylax-std indepedently of the rest of the Phylax stack.
+The README.md in the root folder should always be kept up to date, so that people are able to use phylax-std independently of the rest of the Phylax stack.
 
 ## How to contribute to the phylax-std reference docs
 
